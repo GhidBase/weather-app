@@ -22,6 +22,7 @@ body {
 form {
     display: flex;
     gap: 10px;
+    padding: 0 100px;
 }
 
 form>* {
@@ -38,6 +39,7 @@ input{
     font-size: 50px;
     padding: 10px .5em;
     border-radius: .5em;
+    width: 100%;
 }
 
 button {
@@ -58,10 +60,10 @@ button img {
     width: 100dvw;
     padding: 0 100px;
     box-sizing: border-box;
+    flex-wrap: wrap;
 }
 
 .weather-report {
-    /* height: 300px; */
     flex: 1;
     background-color: var(--background-color);
     color: var(--off-white-two);
@@ -82,4 +84,5 @@ button img {
     font-size: 20px;
     margin-bottom: 0;
     margin-top: .3em;
+    text-align: center;
 }
