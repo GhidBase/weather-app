@@ -1,18 +1,33 @@
+
 class WeatherSystem {
-    // setting variables
-    // static variable = thing
+  // setting variables
+  // static variable = thing
+  static key = "BG7EGQBT6TU5U8LX8L6KVE3E5";
+  static city;
+  static weatherData;
 
-    // making functions
-    // static functionName() {}
+  static async getCityWeather(city) {
+    const request = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${WeatherSystem.key}`;
+    const weatherPromise = await fetch(request, { mode: "cors" });
+    WeatherSystem.weatherData = await weatherPromise.json();
+  }
+
+  static readWeatherToConsole() {
+    console.log(WeatherSystem.weatherData);
+  }
+
+  // making functions
+  // static functionName() {}
 }
 
-class GiphySystem {
+class GiphySystem {}
 
-}
+class InterfaceManager {}
 
-class InterfaceManager {
-
-}
+(async () => {
+  await WeatherSystem.getCityWeather("draper");
+  WeatherSystem.readWeatherToConsole();
+})();
 
 // Main URL
 // https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/

@@ -1,0 +1,10 @@
+body {
+    background-color: black;
+
+    margin: 0;
+    width: 100dvw;
+    height: 100dvh;
+    overflow: hidden;
+    background-size: cover;
+    background-image: url(images/clear-weather.jpg);
+}
