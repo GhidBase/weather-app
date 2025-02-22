@@ -1,4 +1,3 @@
-
 class WeatherSystem {
   // setting variables
   // static variable = thing

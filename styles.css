@@ -1,10 +1,35 @@
-body {
-    background-color: black;
+:root {
+    font-family: 'Roboto';
+}
 
-    margin: 0;
-    width: 100dvw;
-    height: 100dvh;
-    overflow: hidden;
-    background-size: cover;
-    background-image: url(images/clear-weather.jpg);
+body {
+  margin: 0;
+  width: 100dvw;
+  height: 100dvh;
+  background-size: cover;
+  background-image: url(images/clear-weather.jpg);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+    display: flex;
+}
+
+form *{
+    font-size: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+button {
+    display: flex;
+    align-items: center;
+}
+
+button img {
+    height: 1em;
 }
