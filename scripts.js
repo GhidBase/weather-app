@@ -9,24 +9,53 @@ class WeatherSystem {
     const request = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${WeatherSystem.key}`;
     const weatherPromise = await fetch(request, { mode: "cors" });
     WeatherSystem.weatherData = await weatherPromise.json();
+    WeatherSystem.readWeatherToConsole();
   }
 
   static readWeatherToConsole() {
     console.log(WeatherSystem.weatherData);
   }
-
-  // making functions
-  // static functionName() {}
 }
 
 class GiphySystem {}
 
-class InterfaceManager {}
+class InterfaceManager {
+  static dayObjectPath = "templates/day-object.html";
+  static containerElement = document.querySelector(".container");
+  static dayObjectTemplate;
 
-(async () => {
-  await WeatherSystem.getCityWeather("draper");
-  WeatherSystem.readWeatherToConsole();
-})();
+  static async mainInitialize() {
+    await InterfaceManager.setDayObjectTemplate();
+    InterfaceManager.initializeWeekObjects();
+  }
+
+  static async setDayObjectTemplate() {
+    let template = await fetch(InterfaceManager.dayObjectPath);
+    template = await template.text();
+    let templateElement = document.createElement("template");
+    templateElement.innerHTML = template.trim();
+    InterfaceManager.dayObjectTemplate = templateElement.content.childNodes[1];
+  }
+
+  static initializeDayObject(day) {
+    const dayObject = InterfaceManager.dayObjectTemplate.cloneNode(true);
+    dayObject.querySelector(".day").textContent = day;
+    InterfaceManager.containerElement.appendChild(dayObject);
+  }
+
+  static async initializeWeekObjects() {
+    InterfaceManager.initializeDayObject("Sunday");
+    InterfaceManager.initializeDayObject("Monday");
+    InterfaceManager.initializeDayObject("Tuesday");
+    InterfaceManager.initializeDayObject("Wednesday");
+    InterfaceManager.initializeDayObject("Thursday");
+    InterfaceManager.initializeDayObject("Friday");
+    InterfaceManager.initializeDayObject("Saturday");
+  }
+}
+
+// WeatherSystem.getCityWeather("Draper");
+InterfaceManager.mainInitialize();
 
 // Main URL
 // https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/
