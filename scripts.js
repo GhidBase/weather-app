@@ -10,6 +10,7 @@ class WeatherSystem {
     const weatherPromise = await fetch(request, { mode: "cors" });
     WeatherSystem.weatherData = await weatherPromise.json();
     WeatherSystem.readWeatherToConsole();
+    return WeatherSystem.weatherData;
   }
 
   static readWeatherToConsole() {
@@ -22,11 +23,22 @@ class GiphySystem {}
 class InterfaceManager {
   static dayObjectPath = "templates/day-object.html";
   static containerElement = document.querySelector(".container");
+  static searchButton = document.getElementById("search-button")
+  static cityInputField = document.getElementById("city");
   static dayObjectTemplate;
+  static dayObjectsArray = [];
 
   static async mainInitialize() {
     await InterfaceManager.setDayObjectTemplate();
     InterfaceManager.initializeWeekObjects();
+    InterfaceManager.searchButton.addEventListener("click", () => {
+      InterfaceManager.getWeatherReport(InterfaceManager.cityInputField.value)
+    });
+  }
+
+  static async getWeatherReport(city) {
+    event.preventDefault();
+    await WeatherSystem.getCityWeather(city);
   }
 
   static async setDayObjectTemplate() {
@@ -40,17 +52,22 @@ class InterfaceManager {
   static initializeDayObject(day) {
     const dayObject = InterfaceManager.dayObjectTemplate.cloneNode(true);
     dayObject.querySelector(".day").textContent = day;
-    InterfaceManager.containerElement.appendChild(dayObject);
+    return dayObject;
   }
 
   static async initializeWeekObjects() {
-    InterfaceManager.initializeDayObject("Sunday");
-    InterfaceManager.initializeDayObject("Monday");
-    InterfaceManager.initializeDayObject("Tuesday");
-    InterfaceManager.initializeDayObject("Wednesday");
-    InterfaceManager.initializeDayObject("Thursday");
-    InterfaceManager.initializeDayObject("Friday");
-    InterfaceManager.initializeDayObject("Saturday");
+    InterfaceManager.dayObjectsArray = [];
+    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Sunday"));
+    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Monday"));
+    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Tuesday"));
+    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Wednesday"));
+    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Thursday"));
+    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Friday"));
+    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Saturday"));
+  }
+
+  static removeWeekDayElements() {
+    InterfaceManager.dayObjectsArray.forEach((element, index) => InterfaceManager.containerElement.removeChild(InterfaceManager.dayObjectsArray[index]))
   }
 }
 
