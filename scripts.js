@@ -31,9 +31,13 @@ class InterfaceManager {
   static async mainInitialize() {
     await InterfaceManager.setDayObjectTemplate();
     InterfaceManager.initializeWeekObjects();
-    InterfaceManager.searchButton.addEventListener("click", () => {
-      InterfaceManager.getWeatherReport(InterfaceManager.cityInputField.value);
+    InterfaceManager.searchButton.addEventListener("click", async () => {
+      await InterfaceManager.getWeatherReport(InterfaceManager.cityInputField.value);
       InterfaceManager.appendWeekObjects();
+      InterfaceManager.dayObjectsArray.forEach((element, index) => {
+        InterfaceManager.setDayObjectFields(index, WeatherSystem.weatherData.days[index].temp, WeatherSystem.weatherData.days[index].conditions)
+        console.log(WeatherSystem.weatherData.days[index].conditions);
+      })
     });
   }
 
@@ -76,7 +80,9 @@ class InterfaceManager {
   }
 
   static setDayObjectFields(dayObjectIndex, temperature, conditions) {
-    InterfaceManager.dayObjectsArray[dayObjectIndex].querySelector(".temp").textContent = "test";
+    InterfaceManager.dayObjectsArray[dayObjectIndex].querySelector(".temp").textContent = temperature;
+    InterfaceManager.dayObjectsArray[dayObjectIndex].querySelector(".conditions").textContent = conditions;
+    // console.log(conditions)
   }
 }
 
