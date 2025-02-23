@@ -32,7 +32,8 @@ class InterfaceManager {
     await InterfaceManager.setDayObjectTemplate();
     InterfaceManager.initializeWeekObjects();
     InterfaceManager.searchButton.addEventListener("click", () => {
-      InterfaceManager.getWeatherReport(InterfaceManager.cityInputField.value)
+      InterfaceManager.getWeatherReport(InterfaceManager.cityInputField.value);
+      InterfaceManager.appendWeekObjects();
     });
   }
 
@@ -66,8 +67,16 @@ class InterfaceManager {
     InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Saturday"));
   }
 
+  static appendWeekObjects() {
+    InterfaceManager.dayObjectsArray.forEach((element, index) => InterfaceManager.containerElement.appendChild(element))
+  }
+
   static removeWeekDayElements() {
     InterfaceManager.dayObjectsArray.forEach((element, index) => InterfaceManager.containerElement.removeChild(InterfaceManager.dayObjectsArray[index]))
+  }
+
+  static setDayObjectFields(dayObjectIndex, temperature, conditions) {
+    InterfaceManager.dayObjectsArray[dayObjectIndex].querySelector(".temp").textContent = "test";
   }
 }
 
