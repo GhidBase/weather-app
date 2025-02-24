@@ -9,7 +9,6 @@ class WeatherSystem {
     const request = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${WeatherSystem.key}`;
     const weatherPromise = await fetch(request, { mode: "cors" });
     WeatherSystem.weatherData = await weatherPromise.json();
-    WeatherSystem.readWeatherToConsole();
     return WeatherSystem.weatherData;
   }
 
@@ -27,6 +26,7 @@ class InterfaceManager {
   static cityInputField = document.getElementById("city");
   static dayObjectTemplate;
   static dayObjectsArray = [];
+  static dayOfWeekArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   static async mainInitialize() {
     await InterfaceManager.setDayObjectTemplate();
@@ -36,7 +36,6 @@ class InterfaceManager {
       InterfaceManager.appendWeekObjects();
       InterfaceManager.dayObjectsArray.forEach((element, index) => {
         InterfaceManager.setDayObjectFields(index, WeatherSystem.weatherData.days[index].temp, WeatherSystem.weatherData.days[index].conditions)
-        console.log(WeatherSystem.weatherData.days[index].conditions);
       })
     });
   }
@@ -54,9 +53,8 @@ class InterfaceManager {
     InterfaceManager.dayObjectTemplate = templateElement.content.childNodes[1];
   }
 
-  static initializeDayObject(day) {
+  static initializeDayObject() {
     const dayObject = InterfaceManager.dayObjectTemplate.cloneNode(true);
-    dayObject.querySelector(".day").textContent = day;
     return dayObject;
   }
 
@@ -80,9 +78,10 @@ class InterfaceManager {
   }
 
   static setDayObjectFields(dayObjectIndex, temperature, conditions) {
+    const dayOfWeekString = InterfaceManager.dayOfWeekArray[new Date(WeatherSystem.weatherData.days[dayObjectIndex].datetime).getDay()];
+    InterfaceManager.dayObjectsArray[dayObjectIndex].querySelector(".day").textContent = dayOfWeekString;
     InterfaceManager.dayObjectsArray[dayObjectIndex].querySelector(".temp").textContent = temperature;
     InterfaceManager.dayObjectsArray[dayObjectIndex].querySelector(".conditions").textContent = conditions;
-    // console.log(conditions)
   }
 }
 
