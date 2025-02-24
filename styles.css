@@ -60,16 +60,16 @@ button img {
 }
 
 .container {
-    display: flex;
+    display: grid;
     gap: 10px;
     width: 100dvw;
     padding: var(--container-padding);
     box-sizing: border-box;
-    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    align-items: center;
 }
 
 .weather-report {
-    flex: 1;
     background-color: var(--background-color);
     color: var(--off-white-two);
     border-radius: 1em;
