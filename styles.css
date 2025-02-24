@@ -3,6 +3,11 @@
     --background-color: rgba(0, 0, 0, 0.493);
     --off-white: rgba(255, 255, 255, 0.527);
     --off-white-two: rgba(255, 255, 255, 0.945);
+
+    --input-font-size: clamp(14px, 50px, 50px);
+    --header-font-size: clamp(12px, 24px, 24px);
+    --details-font-size: clamp(10px, 20px, 20px);
+    --container-padding: 0 clamp(20px, 100px, 100px)
 }
 
 body {
@@ -22,7 +27,7 @@ body {
 form {
     display: flex;
     gap: 10px;
-    padding: 0 100px;
+    padding: var(--container-padding);
 }
 
 form>* {
@@ -36,14 +41,14 @@ form>::placeholder {
 }
 
 input{
-    font-size: 50px;
+    font-size: var(--input-font-size);
     padding: 10px .5em;
     border-radius: .5em;
     width: 100%;
 }
 
 button {
-    font-size: 50px;
+    font-size: var(--input-font-size);
     padding: 10px 16px;
     border-radius: .5em;
     display: flex;
@@ -58,7 +63,7 @@ button img {
     display: flex;
     gap: 10px;
     width: 100dvw;
-    padding: 0 100px;
+    padding: var(--container-padding);
     box-sizing: border-box;
     flex-wrap: wrap;
 }
@@ -80,8 +85,12 @@ button img {
     margin-top: 0;
 }
 
+h2 {
+    font-size: var(--header-font-size);
+}
+
 .weather-report p {
-    font-size: 20px;
+    font-size: var(--details-font-size);
     margin-bottom: 0;
     margin-top: .3em;
     text-align: center;
