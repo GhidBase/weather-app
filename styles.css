@@ -4,10 +4,10 @@
     --off-white: rgba(255, 255, 255, 0.527);
     --off-white-two: rgba(255, 255, 255, 0.945);
 
-    --input-font-size: clamp(14px, 50px, 50px);
-    --header-font-size: clamp(12px, 24px, 24px);
-    --details-font-size: clamp(10px, 20px, 20px);
-    --container-padding: 0 clamp(20px, 100px, 100px)
+    --input-font-size: clamp(14px, 2.6dvw, 50px);
+    --header-font-size: clamp(12px, 1.3dvw, 24px);
+    --details-font-size: clamp(10px, 1.1dvw, 20px);
+    --container-padding: 0 clamp(20px, 5dvw, 100px)
 }
 
 body {
