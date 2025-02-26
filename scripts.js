@@ -52,7 +52,7 @@ class InterfaceManager {
       InterfaceManager.dayObjectsArray.forEach((element, index) => {
         InterfaceManager.setDayObjectFields(
           index,
-          WeatherSystem.weatherData.days[index].temp,
+          WeatherSystem.weatherData.days[index].temp & "deg",
           WeatherSystem.weatherData.days[index].conditions
         );
       });
@@ -124,7 +124,7 @@ class InterfaceManager {
     console.log(InterfaceManager.dayObjectsArray);
     setTimeout(() => {
       InterfaceManager.dayObjectsArray.forEach((element, index) => {
-        InterfaceManager.setDayObjectFields(index, WeatherSystem.weatherData.days[index].temp, WeatherSystem.weatherData.days[index].conditions);
+        InterfaceManager.setDayObjectFields(index, WeatherSystem.weatherData.days[index].temp + "°F", WeatherSystem.weatherData.days[index].conditions);
       });
     }, 100);
   }
