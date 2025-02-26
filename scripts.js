@@ -73,7 +73,8 @@ class InterfaceManager {
       template = await template.text();
       let templateElement = document.createElement("template");
       templateElement.innerHTML = template.trim();
-      InterfaceManager.dayObjectTemplate = templateElement.content.childNodes[0];
+      InterfaceManager.dayObjectTemplate = Array.from(templateElement.content.childNodes)
+      .find(node => node.nodeType === 1 && node.tagName !== "SCRIPT");
       console.log("Child Nodes:", templateElement.content.childNodes);
     } catch (error) {
       console.error("Error loading day object template:", error);
