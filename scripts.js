@@ -55,18 +55,20 @@ class InterfaceManager {
 
   static initializeDayObject() {
     const dayObject = InterfaceManager.dayObjectTemplate.cloneNode(true);
+    console.log("Day Init finished")
     return dayObject;
   }
 
   static async initializeWeekObjects() {
     InterfaceManager.dayObjectsArray = [];
-    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Sunday"));
-    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Monday"));
-    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Tuesday"));
-    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Wednesday"));
-    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Thursday"));
-    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Friday"));
-    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject("Saturday"));
+    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject());
+    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject());
+    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject());
+    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject());
+    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject());
+    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject());
+    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject());
+    console.log("Week Init Finished");
   }
 
   static appendWeekObjects() {
@@ -86,7 +88,7 @@ class InterfaceManager {
 }
 
 // WeatherSystem.getCityWeather("Draper");
-InterfaceManager.mainInitialize();
+InterfaceManager.mainInitialize()
 
 // Main URL
 // https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/
