@@ -29,7 +29,9 @@ class InterfaceManager {
   static dayOfWeekArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   static async mainInitialize() {
+    console.log("Setting day object template...");
     await InterfaceManager.setDayObjectTemplate();
+    console.log("Day object template set:", InterfaceManager.dayObjectTemplate);
     InterfaceManager.initializeWeekObjects();
     InterfaceManager.searchButton.addEventListener("click", async () => {
       await InterfaceManager.getWeatherReport(InterfaceManager.cityInputField.value);
@@ -47,13 +49,24 @@ class InterfaceManager {
 
   static async setDayObjectTemplate() {
     let template = await fetch(InterfaceManager.dayObjectPath);
+    if (!template.ok) {
+      throw new Error(`Failed to fetch template: ${template.status}`);
+    }
+
     template = await template.text();
     let templateElement = document.createElement("template");
     templateElement.innerHTML = template.trim();
     InterfaceManager.dayObjectTemplate = templateElement.content.childNodes[1];
+  } catch (error) {
+    console.error("Error loading day object template:", error);
+    // Optionally, set a fallback or throw an error to stop execution
+    throw error;
   }
 
   static initializeDayObject() {
+    if (!InterfaceManager.dayObjectTemplate) {
+      throw new Error("Day object template is not loaded yet.");
+    }
     const dayObject = InterfaceManager.dayObjectTemplate.cloneNode(true);
     console.log("Day Init finished")
     return dayObject;
