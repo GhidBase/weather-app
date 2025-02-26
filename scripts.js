@@ -20,7 +20,7 @@ class WeatherSystem {
 class GiphySystem {}
 
 class InterfaceManager {
-  static dayObjectPath = "templates/day-object.html";
+  static dayObjectPath = "./templates/day-object.html";
   static containerElement = document.querySelector(".container");
   static searchButton = document.getElementById("search-button")
   static cityInputField = document.getElementById("city");
