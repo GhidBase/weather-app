@@ -22,11 +22,19 @@ class GiphySystem {}
 class InterfaceManager {
   static dayObjectPath = "./templates/day-object.html";
   static containerElement = document.querySelector(".container");
-  static searchButton = document.getElementById("search-button")
+  static searchButton = document.getElementById("search-button");
   static cityInputField = document.getElementById("city");
   static dayObjectTemplate;
   static dayObjectsArray = [];
-  static dayOfWeekArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  static dayOfWeekArray = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
   static async mainInitialize() {
     console.log("Starting mainInitialize...");
@@ -37,10 +45,16 @@ class InterfaceManager {
     InterfaceManager.initializeWeekObjects();
     console.log("Week objects initialized:", InterfaceManager.dayObjectsArray);
     InterfaceManager.searchButton.addEventListener("click", async () => {
-      await InterfaceManager.getWeatherReport(InterfaceManager.cityInputField.value);
+      await InterfaceManager.getWeatherReport(
+        InterfaceManager.cityInputField.value
+      );
       InterfaceManager.appendWeekObjects();
       InterfaceManager.dayObjectsArray.forEach((element, index) => {
-        InterfaceManager.setDayObjectFields(index, WeatherSystem.weatherData.days[index].temp, WeatherSystem.weatherData.days[index].conditions);
+        InterfaceManager.setDayObjectFields(
+          index,
+          WeatherSystem.weatherData.days[index].temp,
+          WeatherSystem.weatherData.days[index].conditions
+        );
       });
     });
   }
@@ -51,19 +65,19 @@ class InterfaceManager {
   }
 
   static async setDayObjectTemplate() {
-    let template = await fetch(InterfaceManager.dayObjectPath);
-    if (!template.ok) {
-      throw new Error(`Failed to fetch template: ${template.status}`);
+    try {
+      let template = await fetch(InterfaceManager.dayObjectPath);
+      if (!template.ok) {
+        throw new Error(`Failed to fetch template: ${template.status}`);
+      }
+      template = await template.text();
+      let templateElement = document.createElement("template");
+      templateElement.innerHTML = template.trim();
+      InterfaceManager.dayObjectTemplate = templateElement.content.childNodes[0];
+    } catch (error) {
+      console.error("Error loading day object template:", error);
+      throw error;
     }
-
-    template = await template.text();
-    let templateElement = document.createElement("template");
-    templateElement.innerHTML = template.trim();
-    InterfaceManager.dayObjectTemplate = templateElement.content;
-  } catch (error) {
-    console.error("Error loading day object template:", error);
-    // Optionally, set a fallback or throw an error to stop execution
-    throw error;
   }
 
   static initializeDayObject() {
@@ -71,40 +85,77 @@ class InterfaceManager {
       throw new Error("Day object template is not loaded yet.");
     }
     const dayObject = InterfaceManager.dayObjectTemplate.cloneNode(true);
-    console.log("Day Init finished " & dayObject)
+    console.log("Day Init finished " & dayObject);
     return dayObject;
   }
 
   static async initializeWeekObjects() {
     InterfaceManager.dayObjectsArray = [];
-    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject());
-    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject());
-    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject());
-    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject());
-    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject());
-    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject());
-    InterfaceManager.dayObjectsArray.push(InterfaceManager.initializeDayObject());
+    InterfaceManager.dayObjectsArray.push(
+      InterfaceManager.initializeDayObject()
+    );
+    InterfaceManager.dayObjectsArray.push(
+      InterfaceManager.initializeDayObject()
+    );
+    InterfaceManager.dayObjectsArray.push(
+      InterfaceManager.initializeDayObject()
+    );
+    InterfaceManager.dayObjectsArray.push(
+      InterfaceManager.initializeDayObject()
+    );
+    InterfaceManager.dayObjectsArray.push(
+      InterfaceManager.initializeDayObject()
+    );
+    InterfaceManager.dayObjectsArray.push(
+      InterfaceManager.initializeDayObject()
+    );
+    InterfaceManager.dayObjectsArray.push(
+      InterfaceManager.initializeDayObject()
+    );
     console.log("Week Init Finished");
   }
 
   static appendWeekObjects() {
-    InterfaceManager.dayObjectsArray.forEach((element, index) => InterfaceManager.containerElement.appendChild(element))
+    InterfaceManager.dayObjectsArray.forEach((element, index) =>
+      InterfaceManager.containerElement.appendChild(element)
+    );
+    console.log(InterfaceManager.dayObjectsArray);
+    setTimeout(() => {
+      InterfaceManager.dayObjectsArray.forEach((element, index) => {
+        InterfaceManager.setDayObjectFields(index, WeatherSystem.weatherData.days[index].temp, WeatherSystem.weatherData.days[index].conditions);
+      });
+    }, 100);
   }
 
   static removeWeekDayElements() {
-    InterfaceManager.dayObjectsArray.forEach((element, index) => InterfaceManager.containerElement.removeChild(InterfaceManager.dayObjectsArray[index]))
+    InterfaceManager.dayObjectsArray.forEach((element, index) =>
+      InterfaceManager.containerElement.removeChild(
+        InterfaceManager.dayObjectsArray[index]
+      )
+    );
   }
 
   static setDayObjectFields(dayObjectIndex, temperature, conditions) {
-    const dayOfWeekString = InterfaceManager.dayOfWeekArray[new Date(WeatherSystem.weatherData.days[dayObjectIndex].datetime).getDay()];
-    InterfaceManager.dayObjectsArray[dayObjectIndex].querySelector(".day").textContent = dayOfWeekString;
-    InterfaceManager.dayObjectsArray[dayObjectIndex].querySelector(".temp").textContent = temperature;
-    InterfaceManager.dayObjectsArray[dayObjectIndex].querySelector(".conditions").textContent = conditions;
+    const dayOfWeekString =
+      InterfaceManager.dayOfWeekArray[
+        new Date(
+          WeatherSystem.weatherData.days[dayObjectIndex].datetime
+        ).getDay()
+      ];
+    InterfaceManager.dayObjectsArray[dayObjectIndex].querySelector(
+      ".day"
+    ).textContent = dayOfWeekString;
+    InterfaceManager.dayObjectsArray[dayObjectIndex].querySelector(
+      ".temp"
+    ).textContent = temperature;
+    InterfaceManager.dayObjectsArray[dayObjectIndex].querySelector(
+      ".conditions"
+    ).textContent = conditions;
   }
 }
 
 // WeatherSystem.getCityWeather("Draper");
-InterfaceManager.mainInitialize()
+InterfaceManager.mainInitialize();
 
 // Main URL
 // https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/
