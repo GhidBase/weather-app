@@ -71,7 +71,7 @@ class InterfaceManager {
       throw new Error("Day object template is not loaded yet.");
     }
     const dayObject = InterfaceManager.dayObjectTemplate.cloneNode(true);
-    console.log("Day Init finished")
+    console.log("Day Init finished " & dayObject)
     return dayObject;
   }
 
