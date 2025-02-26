@@ -74,6 +74,7 @@ class InterfaceManager {
       let templateElement = document.createElement("template");
       templateElement.innerHTML = template.trim();
       InterfaceManager.dayObjectTemplate = templateElement.content.childNodes[0];
+      console.log("Child Nodes:", templateElement.content.childNodes);
     } catch (error) {
       console.error("Error loading day object template:", error);
       throw error;
